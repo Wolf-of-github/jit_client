@@ -6,27 +6,63 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Brain, Upload } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from 'next/navigation' // For programmatic navigation
 
-export function UploadDocumentPage() {
+export default function UploadDocumentPage() {
   const [file, setFile] = useState<File | null>(null)
+  const [base64File, setBase64File] = useState<string | null>(null)
+  const router = useRouter() // Initialize useRouter
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile)
+      convertToBase64(selectedFile) // Convert the file to base64 after validation
     } else {
       alert('Please select a PDF file.')
       event.target.value = ''
     }
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const convertToBase64 = (file: File) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      if (reader.result) {
+        setBase64File(reader.result as string) // Store the base64 result
+      }
+    }
+    reader.onerror = (error) => {
+      console.error('Error converting file to base64:', error)
+    }
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (file) {
-      // Here you would typically send the file to your server
-      console.log('Uploading file:', file.name)
-      // For now, we'll just show an alert
-      alert(`File "${file.name}" uploaded successfully! Generating quiz...`)
+
+    if (base64File) {
+      try {
+        const response = await fetch('/api/upload', { // <-- API path here
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ file: base64File }), // Send the base64 encoded file
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          const returnedString = data.responseString // Assuming API returns { responseString: "your-string" }
+
+          // Navigate to study-cards page with the response string as a query parameter
+          router.push(`/study-cards?result=${encodeURIComponent(returnedString)}`) // Navigate with query param
+        } else {
+          alert('Error uploading file.')
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error)
+        alert('Error uploading file.')
+      }
     } else {
       alert('Please select a file before submitting.')
     }
@@ -53,7 +89,7 @@ export function UploadDocumentPage() {
                 <Input
                   id="document-upload"
                   type="file"
-                  accept=".pdf"
+                  accept=".pdf" // Only accept PDF files
                   onChange={handleFileChange}
                   className="flex-1"
                 />
@@ -90,5 +126,3 @@ export function UploadDocumentPage() {
     </div>
   )
 }
-
-export default UploadDocumentPage

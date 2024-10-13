@@ -37,7 +37,7 @@ export function JitLearningLandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Link href="/get-started">
+                <Link href="/upload-document">
                   <Button className="bg-background text-primary hover:bg-background/90">Get Started</Button>
                 </Link>
                 <Link href="#learn-more">
