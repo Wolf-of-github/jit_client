@@ -14,37 +14,37 @@ export function JitLearningLandingPage() {
           <span className="ml-2 text-2xl font-bold text-primary">JIT Learning</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="/login">
+          {/* <Link className="text-sm font-medium hover:underline underline-offset-4" href="/login">
             Login
-          </Link>
-          <Link href="/signup">
+          </Link>*/}
+          <Link href="/upload-document">
             <Button variant="outline" size="sm">
-              Sign Up
+              Try Demo
             </Button>
-          </Link>
+          </Link> 
         </nav>
       </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-primary">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
+              <div className="space-y-8">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-primary-foreground">
                   Rapid Upskilling with AI-Powered Learning
                 </h1>
                 <p className="mx-auto max-w-[700px] text-primary-foreground md:text-xl">
-                  Master mission-critical technical skills in record time. From military to medical, law to HVAC - JIT Learning has you covered.
+                  Master mission-critical skills in record time. Learn anything from any domain right from military to medical, law to HVAC - JIT Learning has you covered.
                 </p>
               </div>
-              <div className="space-x-4">
+              <div className="space-x-4 y-8">
                 <Link href="/upload-document">
                   <Button className="bg-background text-primary hover:bg-background/90">Get Started</Button>
                 </Link>
-                <Link href="#learn-more">
+                {/* <Link href="#learn-more">
                   <Button variant="outline" className="bg-transparent text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
                     Learn More
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@ export function JitLearningLandingPage() {
               <div className="flex flex-col items-center space-y-4 text-center">
                 <Clock className="h-12 w-12 text-primary" />
                 <h3 className="text-xl font-bold">Spaced Repetition</h3>
-                <p className="text-muted-foreground">Optimize retention with automatically generated flashcards and review schedules.</p>
+                <p className="text-muted-foreground">Optimize retention with automatically generated submitFlashcardStudy.</p>
               </div>
             </div>
           </div>
@@ -77,18 +77,18 @@ export function JitLearningLandingPage() {
             <div className="grid gap-10 lg:grid-cols-3">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-2xl font-bold">1</div>
-                <h3 className="text-xl font-bold">Select Your Field</h3>
-                <p className="text-muted-foreground">Choose from a wide range of technical fields, from military to medical, law to HVAC.</p>
+                <h3 className="text-xl font-bold">Upload Content</h3>
+                <p className="text-muted-foreground">Upload material from any domains, from military to medical, law to HVAC.</p>
               </div>
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-2xl font-bold">2</div>
-                <h3 className="text-xl font-bold">AI Assessment</h3>
-                <p className="text-muted-foreground">Our AI evaluates your current knowledge and creates a personalized learning plan.</p>
+                <h3 className="text-xl font-bold">AI curation</h3>
+                <p className="text-muted-foreground">Space repetition based AI-generated flashcards help learn difficult concept with ease.</p>
               </div>
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-2xl font-bold">3</div>
-                <h3 className="text-xl font-bold">Rapid Learning</h3>
-                <p className="text-muted-foreground">Engage with AI-generated content, quizzes, and spaced repetition flashcards to master your skills.</p>
+                <h3 className="text-xl font-bold">Study</h3>
+                <p className="text-muted-foreground">Our AI progressively evalutes you domain knowledge and render flashcards to help you master it.</p>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ export function JitLearningLandingPage() {
                   Join JIT Learning today and experience the future of rapid upskilling.
                 </p>
               </div>
-              <div className="w-full max-w-sm space-y-2">
+              {/* <div className="w-full max-w-sm space-y-2">
                 <form className="flex space-x-2">
                   <Input
                     className="max-w-lg flex-1 bg-primary-foreground text-primary"
@@ -119,22 +119,18 @@ export function JitLearningLandingPage() {
                     Terms & Conditions
                   </Link>
                 </p>
-              </div>
+              </div> */}
+              <Button className="bg-background text-primary hover:bg-background/90" type="submit">
+                    <Link href="/upload-document">Get Started</Link>
+              </Button>
             </div>
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">© 2024 JIT Learning. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </Link>
-        </nav>
-      </footer>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center justify-center px-4 md:px-6 border-t">
+  <p className="text-xs text-muted-foreground text-center">© 2024 JIT Learning. All rights reserved.</p>
+</footer>
+
     </div>
   )
 }
