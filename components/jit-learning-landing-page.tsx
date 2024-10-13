@@ -53,7 +53,7 @@ export function JitLearningLandingPage() {
         <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6 max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Why Choose JIT Learning?</h2>
-            <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-10 sm:grid-cols-3">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <Zap className="h-12 w-12 text-primary" />
                 <h3 className="text-xl font-bold">Rapid Upskilling</h3>
@@ -73,9 +73,9 @@ export function JitLearningLandingPage() {
           </div>
         </section>
         <section id="how-it-works" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">How It Works</h2>
-            <div className="grid gap-10 lg:grid-cols-3">
+            <div className="grid gap-10 sm:grid-cols-3">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-2xl font-bold">1</div>
                 <h3 className="text-xl font-bold">Upload Content</h3>
@@ -95,7 +95,7 @@ export function JitLearningLandingPage() {
           </div>
         </section>
         <section id="get-started" className="w-full py-12 md:py-24 lg:py-32 bg-primary text-primary-foreground">
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 max-w-3xl mx-auto">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Ready to Accelerate Your Learning?</h2>
@@ -103,26 +103,8 @@ export function JitLearningLandingPage() {
                   Join JIT Learning today and experience the future of rapid upskilling.
                 </p>
               </div>
-              {/* <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
-                  <Input
-                    className="max-w-lg flex-1 bg-primary-foreground text-primary"
-                    placeholder="Enter your email"
-                    type="email"
-                  />
-                  <Button className="bg-background text-primary hover:bg-background/90" type="submit">
-                    <Link href="/get-started">Get Started</Link>
-                  </Button>
-                </form>
-                <p className="text-xs text-primary-foreground/70">
-                  By signing up, you agree to our{" "}
-                  <Link className="underline underline-offset-2" href="#">
-                    Terms & Conditions
-                  </Link>
-                </p>
-              </div> */}
               <Button className="bg-background text-primary hover:bg-background/90" type="submit">
-                    <Link href="/upload-document">Get Started</Link>
+                <Link href="/upload-document">Get Started</Link>
               </Button>
             </div>
           </div>
