@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ArrowLeft, Brain, Upload } from "lucide-react"
+import {  Brain, Upload } from "lucide-react"
 import Link from "next/link"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
@@ -130,9 +130,6 @@ function StudyCardsContent() {
 
             <div className="flex justify-between items-center">
               <div className="space-x-2">
-                <Button onClick={() => router.back()} variant="outline">
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Previous
-                </Button>
                 <Link href="/upload-document">
                   <Button variant="outline">
                     <Upload className="mr-2 h-4 w-4" /> New Deck
@@ -148,8 +145,8 @@ function StudyCardsContent() {
                   </>
                 ) : (
                   <>
-                    <Button onClick={() => handleAnswer(true)} variant="outline">Got It</Button>
-                    <Button onClick={() => handleAnswer(false)} variant="outline">Missed It</Button>
+                    <Button onClick={() => handleAnswer(true)} variant="outline" className="border-green-500 hover:bg-green-100">Got It</Button>
+                    <Button onClick={() => handleAnswer(false)} variant="outline" className="border-red-500 hover:bg-red-100">Missed It</Button>
                   </>
                 )}
               </div>
