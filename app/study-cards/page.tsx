@@ -73,19 +73,18 @@ export default function StudyCardsPage() {
       }
   }
 
-  // When `shouldSubmit` becomes true, submit the flashcard study
   useEffect(() => {
     if (shouldSubmit) {
       submitFlashcardStudy();
       setShouldSubmit(false); // Reset
     }
-  }, [shouldSubmit]); // Trigger when shouldSubmit is true
-
+  }, [submitFlashcardStudy, shouldSubmit]); // Include submitFlashcardStudy as a dependency
+  
   useEffect(() => {
     if (sessionId) {
-      fetchNextFlashcard()
+      fetchNextFlashcard();
     }
-  }, [sessionId])
+  }, [fetchNextFlashcard, sessionId]); // Include fetchNextFlashcard as a dependency
 
   const handleFlip = (level: number) => {
     setKnowledgeLevel(level)
