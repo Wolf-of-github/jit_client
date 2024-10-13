@@ -1,9 +1,10 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input"
-// import { Brain, Zap, Clock, Users, ChevronRight, Github } from "lucide-react"
 import Link from "next/link"
+import { Brain } from "lucide-react";  // If only using Brain
+import { Zap } from "lucide-react";    // If only using Zap
+import { Clock } from "lucide-react";  // If only using Clock
 
 export function JitLearningLandingPage() {
   return (
