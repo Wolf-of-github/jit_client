@@ -1,6 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+export const dynamic = 'force-dynamic'; // Ensure dynamic client-side rendering
+
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -20,12 +22,13 @@ export default function StudyCardsPage() {
   const [knowledgeLevel, setKnowledgeLevel] = useState<number>(0)
   const [currentFlashcard, setCurrentFlashcard] = useState<Flashcard | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [shouldSubmit, setShouldSubmit] = useState(false) // To control submission
+  const [shouldSubmit, setShouldSubmit] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('result')
 
-  const fetchNextFlashcard = async () => {
+  // Memoize fetchNextFlashcard
+  const fetchNextFlashcard = useCallback(async () => {
     try {
       const response = await fetch(`https://backend.jitlearning.pro/api/v1/get-next-flashcard/${sessionId}`)
       if (!response.ok) {
@@ -39,9 +42,10 @@ export default function StudyCardsPage() {
       console.error('Error fetching flashcard:', error)
       setError('Unable to load flashcard. Please try again later.')
     }
-  }
+  }, [sessionId])
 
-  const submitFlashcardStudy = async () => {
+  // Memoize submitFlashcardStudy
+  const submitFlashcardStudy = useCallback(async () => {
     if (!currentFlashcard) {
       console.error('No flashcard selected');
       return;
@@ -68,24 +72,25 @@ export default function StudyCardsPage() {
       fetchNextFlashcard();
       
     } catch (error) {
-        console.error('Error submitting flashcard study:', error);
-        setError('Unable to submit answer. Please try again later.');
-      }
-  }
+      console.error('Error submitting flashcard study:', error);
+      setError('Unable to submit answer. Please try again later.');
+    }
+  }, [currentFlashcard, knowledgeLevel, sessionId, fetchNextFlashcard])
 
-  // When `shouldSubmit` becomes true, submit the flashcard study
+  // Submit flashcard study if `shouldSubmit` is true
   useEffect(() => {
     if (shouldSubmit) {
       submitFlashcardStudy();
-      setShouldSubmit(false); // Reset
+      setShouldSubmit(false); // Reset the submission flag
     }
-  }, [shouldSubmit]); // Trigger when shouldSubmit is true
+  }, [shouldSubmit, submitFlashcardStudy])
 
+  // Fetch the next flashcard when the sessionId changes
   useEffect(() => {
     if (sessionId) {
       fetchNextFlashcard()
     }
-  }, [sessionId])
+  }, [sessionId, fetchNextFlashcard])
 
   const handleFlip = (level: number) => {
     setKnowledgeLevel(level)
@@ -94,7 +99,7 @@ export default function StudyCardsPage() {
 
   const handleAnswer = (gotIt: boolean) => {
     if (!gotIt) {
-      setKnowledgeLevel(3);  // "Missed It" sets knowledgeLevel to 4
+      setKnowledgeLevel(3);  // "Missed It" sets knowledgeLevel to 3
     }
     setShouldSubmit(true);  // Trigger the submission after setting the knowledge level
   }
@@ -102,7 +107,7 @@ export default function StudyCardsPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-      <Link className="flex items-center justify-center" href="/">
+        <Link className="flex items-center justify-center" href="/">
           <Brain className="h-6 w-6 text-primary" />
           <span className="ml-2 text-2xl font-bold text-primary">JIT Learning</span>
         </Link>
