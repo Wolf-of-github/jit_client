@@ -1,8 +1,6 @@
 'use client'
 
-export const dynamic = 'force-dynamic'; // Ensure dynamic client-side rendering
-
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -17,7 +15,7 @@ interface Flashcard {
   answer: string;
 }
 
-export default function StudyCardsPage() {
+function StudyCardsContent() {
   const [isFlipped, setIsFlipped] = useState(false)
   const [knowledgeLevel, setKnowledgeLevel] = useState<number>(0)
   const [currentFlashcard, setCurrentFlashcard] = useState<Flashcard | null>(null)
@@ -166,5 +164,13 @@ export default function StudyCardsPage() {
         </p>
       </footer>
     </div>
+  )
+}
+
+export default function StudyCardsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <StudyCardsContent />
+    </Suspense>
   )
 }
