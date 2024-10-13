@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, Suspense } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {  Brain, Upload } from "lucide-react"
@@ -21,7 +21,6 @@ function StudyCardsContent() {
   const [currentFlashcard, setCurrentFlashcard] = useState<Flashcard | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [shouldSubmit, setShouldSubmit] = useState(false)
-  const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('result')
 
