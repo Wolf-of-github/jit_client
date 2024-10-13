@@ -42,22 +42,22 @@ export default function UploadDocumentPage() {
 
     if (base64File) {
       try {
-        const response = await fetch('/api/upload', { // <-- API path here
+
+        const response = await fetch('https://backend.jitlearning.pro/api/v1/create-study-session', { // <-- API path here
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ file: base64File }), // Send the base64 encoded file
+          body: JSON.stringify({ pdf_base64: base64File }), // Send the base64 encoded file
         })
 
         if (response.ok) {
           const data = await response.json()
           const returnedString = data.responseString // Assuming API returns { responseString: "your-string" }
-
-          // Navigate to study-cards page with the response string as a query parameter
           router.push(`/study-cards?result=${encodeURIComponent(returnedString)}`) // Navigate with query param
+
         } else {
-          alert('Error uploading file.')
+          alert('Error uploading the file.')
         }
       } catch (error) {
         console.error('Error uploading file:', error)
@@ -84,7 +84,7 @@ export default function UploadDocumentPage() {
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="document-upload">Select PDF File</Label>
+
               <div className="flex items-center space-x-2">
                 <Input
                   id="document-upload"

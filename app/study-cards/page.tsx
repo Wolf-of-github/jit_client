@@ -25,7 +25,7 @@ export default function StudyCardsPage() {
 
     if (deckID) {
       // Replace with your actual API endpoint
-      fetch(`/api/getCard?deckID=${deckID}`)
+      fetch(`https://backend.jitlearning.pro/api/v1/get-next-flashcard/${deckID}`)
         .then((response) => response.json())
         .then((data: CardData) => {
           if (isMounted) {
@@ -58,7 +58,7 @@ export default function StudyCardsPage() {
       setKnowledge(3) // Set knowledge to 3 if user was wrong
     }
     // Send knowledge level to backend
-    fetch('/api/updateKnowledge', {
+    fetch(`https://backend.jitlearning.pro/api/v1/study-flashcard/${deckID}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
