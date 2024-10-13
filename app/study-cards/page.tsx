@@ -89,11 +89,6 @@ function StudyCardsContent() {
     }
   }, [sessionId, fetchNextFlashcard])
 
-  const handleFlip = (level: number) => {
-    setKnowledgeLevel(level)
-    setIsFlipped(true)
-  }
-
   const handleAnswer = (gotIt: boolean) => {
     if (!gotIt) {
       setKnowledgeLevel(3);  // "Missed It" sets knowledgeLevel to 3
@@ -120,7 +115,7 @@ function StudyCardsContent() {
         ) : (
           <>
             <div className="relative w-full aspect-video mb-6">
-              <Card className="w-full h-full flex items-center justify-center p-6 cursor-pointer" onClick={() => !isFlipped && handleFlip(1)}>
+              <Card className="w-full h-full flex items-center justify-center p-6">
                 <p className="text-2xl font-semibold text-center break-words max-w-full">
                   {isFlipped ? currentFlashcard?.answer : currentFlashcard?.question}
                 </p>
@@ -138,9 +133,9 @@ function StudyCardsContent() {
               <div className="space-x-2">
                 {!isFlipped ? (
                   <>
-                    <Button onClick={() => handleFlip(1)} variant="outline">Easy</Button>
-                    <Button onClick={() => handleFlip(2)} variant="outline">Moderate</Button>
-                    <Button onClick={() => handleFlip(3)} variant="outline">Hard</Button>
+                    <Button onClick={() => { setIsFlipped(true); setKnowledgeLevel(1); }} variant="outline">Easy</Button>
+                    <Button onClick={() => { setIsFlipped(true); setKnowledgeLevel(2); }} variant="outline">Moderate</Button>
+                    <Button onClick={() => { setIsFlipped(true); setKnowledgeLevel(3); }} variant="outline">Hard</Button>
                   </>
                 ) : (
                   <>
