@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Brain, Upload } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation' // For programmatic navigation
-import pdfToText from 'react-pdftotext'
 import LoadingOverlay from '@/components/ui/loadingOverlay' // Import the new LoadingOverlay component
 
 export default function UploadDocumentPage() {
@@ -15,26 +14,30 @@ export default function UploadDocumentPage() {
   const [loading, setLoading] = useState(false) // Add loading state
   const router = useRouter() // Initialize useRouter
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const convertToText = useCallback(async (file: File) => {
+    try {
+      // Dynamically import pdfToText
+      const { default: pdfToText } = await import('react-pdftotext')
+      const text = await pdfToText(file)
+      // Convert the extracted text to base64
+      const b64t = btoa(encodeURIComponent(text))
+      setBase64File(b64t)
+    } catch (err) {
+      console.error('Error converting PDF to text:', err)
+      alert('Error processing the PDF. Please try again.')
+    }
+  }, [])
+
+  const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile)
-      convertToText(selectedFile) // Convert the file to base64 after validation
+      convertToText(selectedFile)
     } else {
       alert('Please select a PDF file.')
       event.target.value = ''
     }
-  }
-
-  const convertToText = (file: File) => {
-    pdfToText(file)
-      .then(text => {
-        // Convert the extracted text to base64
-        const b64t = btoa(text); // If your text contains only ASCII characters
-        setBase64File(b64t)
-      })
-      .catch(err => console.log(err));
-  }
+  }, [convertToText])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
